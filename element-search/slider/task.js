@@ -1,47 +1,33 @@
-'use strict';
+const slider = document.querySelectorAll(".slider__item");
+const prev = document.querySelector(".slider__arrow_prev");
+const next = document.querySelector(".slider__arrow_next");
 
-const maxIndex = 5;
-let n = 0;
 
-const sliders = document.getElementsByClassName('slider__item');
-const dots = document.getElementsByClassName('slider__dot');
+for(let i = 0; i < slider.length; i++){
+  let n = 0;
 
-const prev = document.getElementsByClassName('slider__arrow_prev')[0];
-const next = document.getElementsByClassName('slider__arrow_next')[0];
-
-function setSlide() {
-  sliders[n].className = 'slider__item slider__item_active';
-  dots[n].className = 'slider__dot slider__dot_active';
-}
-
-function clearSlide() {
-  sliders[n].className = 'slider__item';
-  dots[n].className = 'slider__dot';
-}
-
-for (let i = 0; i < maxIndex; i++) {
-  dots[i].index = i;
-  dots[i].onclick = function() {
-    if (n === this.index)
-      return;
-    clearSlide();
-    n = this.index;
-    setSlide();
+  prev.onclick = function(){
+    if(n === 0){
+      n = (slider.length - 1);
+      slider[(slider.length - 1)].classList.add('slider__item_active')
+      slider[0].classList.remove('slider__item_active');
+    }else{
+      n--
+    slider[n].classList.add('slider__item_active');
+    slider[n + 1].classList.remove('slider__item_active');
+  }
+} 
+  
+  next.onclick = function(){
+  
+    if(n === (slider.length - 1)){
+      n = 0;
+      slider[0].classList.add('slider__item_active')
+      slider[slider.length - 1].classList.remove('slider__item_active');
+    }else{
+      n++
+    slider[n].classList.add('slider__item_active');
+    slider[n - 1].classList.remove('slider__item_active');
   }
 }
-
-prev.onclick = function() {
-  clearSlide();
-  n--;
-  if (n < 0) 
-    n = maxIndex - 1;
-  setSlide();
-}
-
-next.onclick = function() {
-  clearSlide();
-  n++;
-  if (n >= maxIndex) 
-    n = 0;
-  setSlide();
 }
