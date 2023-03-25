@@ -1,17 +1,19 @@
-const reveal0 = document.querySelectorAll(".reveal")[0]
-const reveal1 = document.querySelectorAll(".reveal")[1]
+const spam = document.querySelectorAll('.reveal');
 
+let  reveal = function(el){
+   const {top, bottom} = el.getBoundingClientRect();
 
-function pozition(el){
-    const { top, bottom } = el.getBoundingClientRect();
-    if (bottom < 0){
+    if(bottom < 0){
         el.classList.remove('reveal_active');
-    }
-    if (top > window.innerHeight){
+    }else if(top > window.innerHeight){
         el.classList.remove('reveal_active');
+    } else{
+        el.classList.add('reveal_active');
     }
-    el.classList.add('reveal_active');
 }
 
-pozition(reveal0);
-pozition(reveal1);
+for(let i = 0; i < spam.length; i++) {
+    window.addEventListener('scroll', function() { 
+        reveal(spam[i]);
+    })
+}
